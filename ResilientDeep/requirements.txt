@@ -1,0 +1,13 @@
+# Image processing and array manipulation
+opencv-python
+numpy
+pandas
+
+# ESRGAN and Deep Learning utilities
+basicsr
+tqdm
+scikit-learn
+matplotlib
+
+#for dashboar
+streamlit
