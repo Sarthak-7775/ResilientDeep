@@ -3,6 +3,14 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+
+
 # Distribution / packaging
 .Python
 build/
@@ -28,11 +36,7 @@ MANIFEST
 *.manifest
 *.spec
 
-# Virtual environments
-venv/
-ENV/
-env/
-.venv
+
 
 # IDEs
 .vscode/

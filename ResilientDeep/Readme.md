@@ -1,3 +1,12 @@
+dATASET dOWNLAODED from----
+https://www.kaggle.com/datasets/pranabr0y/celebdf-v2image-dataset?resource=download
+
+
+
+
+
+
+
 The models/ directory is strictly for storing weights (the mathematical parameters your neural network learns), not the Python code itself.
 
 Think of src/modules/model.py as the "skeleton" of your network, and the files in the models/ folder as the "brain" that gets inserted into that skeleton.
