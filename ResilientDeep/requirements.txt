@@ -4,6 +4,7 @@ numpy
 pandas
 
 # ESRGAN and Deep Learning utilities
+#basicsr look for alternative if not able to install
 basicsr
 tqdm
 scikit-learn
