@@ -44,8 +44,13 @@ if uploaded_file is not None:
     
     st.write("Analyzing for invisible compression artifacts...")
     
-    # Preprocess
-    input_tensor = baseline_transforms(image).unsqueeze(0).to(device)
+    # --- THE FIX IS HERE ---
+    # Convert the PIL image to a NumPy array so ToPILImage() doesn't crash
+    image_np = np.array(image)
+    
+    # Preprocess using the numpy array
+    input_tensor = baseline_transforms(image_np).unsqueeze(0).to(device)
+    # -----------------------
     
     # Inference
     with torch.no_grad():
