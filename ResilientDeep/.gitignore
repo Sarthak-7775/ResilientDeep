@@ -56,9 +56,12 @@ data/compressed/
 data/upscaled/
 models/pre_trained/
 models/checkpoints/
+data/dataset
+
 *.pth
 *.pt
 *.ckpt
+
 
 # Logs
 logs/
@@ -67,3 +70,6 @@ logs/
 # Environment variables
 .env
 .env.local
+
+
+# Dataset
