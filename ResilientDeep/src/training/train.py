@@ -42,7 +42,7 @@ def train():
     optimizer = optim.Adam(model.parameters(), lr=0.001)
 
     # 4. The O(N) Training Loop with Evaluation
-    epochs = 3
+    epochs = 50
     best_f1 = 0.0 # Track the best score to save the optimal weights
 
     for epoch in range(epochs):
