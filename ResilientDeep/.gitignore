@@ -54,8 +54,6 @@ MANIFEST
 data/raw/
 data/compressed/
 data/upscaled/
-models/pre_trained/
-models/checkpoints/
 data/dataset
 
 *.pth
