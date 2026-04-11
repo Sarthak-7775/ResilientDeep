@@ -18,15 +18,15 @@ def train():
     print(f"Training initialized on: {device}")
 
     # 2. Configure Paths (Assuming execution from the root ResilientDeep/ folder)
-    data_dir = os.path.abspath("data/sample_dataset") 
+    data_dir = os.path.abspath("data/dataset/train") 
     checkpoint_dir = os.path.abspath("models/checkpoints")
     os.makedirs(checkpoint_dir, exist_ok=True) # Create checkpoint folder if missing
     
     print("Indexing dataset... This ensures O(1) batch loading.")
     dataset = CelebDFDataset(
         root_dir=data_dir, 
-        real_folder="Celeb-real",       
-        fake_folder="Celeb-synthesis",  
+        real_folder="real",       
+        fake_folder="fake",  
         transform=baseline_transforms
     )
     

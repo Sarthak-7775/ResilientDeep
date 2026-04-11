@@ -7,7 +7,7 @@ from torch.utils.data import Dataset
 from torchvision import transforms
 
 class CelebDFDataset(Dataset):
-    def __init__(self, root_dir, real_folder="Celeb-real", fake_folder="Celeb-synthesis", transform=None):
+    def __init__(self, root_dir, real_folder="real", fake_folder="fake", transform=None):
         """
         Initializes the dataset and pre-computes paths for O(1) access.
         """

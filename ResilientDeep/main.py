@@ -8,7 +8,7 @@ def run_attack_pipeline(input_base_dir, output_base_dir):
     from src.data_pipeline.upscale import create_attack_image
     
     # Define subfolders
-    subfolders = ["Celeb-real", "Celeb-synthesis"]
+    subfolders = ["real", "fake"]
     
     for folder in subfolders:
         input_dir = os.path.join(input_base_dir, folder)
@@ -52,8 +52,8 @@ def main():
     elif args.mode == 'attack':
         print("Executing Phase 1: Attack Pipeline (Compression & Upscaling)...")
         # Define paths for your sample dataset
-        input_data = os.path.abspath("data/sample_dataset")
-        output_data = os.path.abspath("data/sample_attacked")
+        input_data = os.path.abspath("data/dataset/train")
+        output_data = os.path.abspath("data/attacked")
         run_attack_pipeline(input_data, output_data)
 
 if __name__ == "__main__":
