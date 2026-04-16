@@ -29,7 +29,7 @@ def load_trained_model():
     model = ResilientDetector(num_classes=2).to(device)
     
     # Path to your best saved weights (assuming execution via main.py)
-    weight_path = ROOT_DIR / "models" / "checkpoints" / "model_epoch_3.pth"
+    weight_path = ROOT_DIR / "models" / "checkpoints" / "model_epoch_2.pth"
     
     if weight_path.exists():
         # Load the dictionary into the skeleton
