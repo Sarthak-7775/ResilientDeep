@@ -55,6 +55,7 @@ data/raw/
 data/compressed/
 data/upscaled/
 data/dataset
+data/attacked
 
 *.pth
 *.pt
