@@ -34,12 +34,25 @@ def train():
         print(f"Error: Dataset is empty. Check your folder path: {data_dir}")
         return
 
+    if hasattr(dataset, 'class_counts'):
+        print(f"Dataset loaded. Total samples: {len(dataset)}, class counts: {dataset.class_counts}")
+        if any(count == 0 for count in dataset.class_counts.values()):
+            print("Error: One class has zero examples. Please verify your real/fake folders.")
+            return
+
     dataloader = DataLoader(dataset, batch_size=32, shuffle=True, num_workers=4)
 
     # 3. Model & Optimization Setup
     model = ResilientDetector().to(device)
+
+    # Freeze the pretrained backbone and train only the classification head first.
+    # This helps prevent the model from collapsing into a single class early in training.
+    for name, param in model.named_parameters():
+        if "backbone.fc" not in name:
+            param.requires_grad = False
+
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters(), lr=0.001)
+    optimizer = optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=1e-4)
 
     # 4. The O(N) Training Loop with Evaluation
     epochs = 50

@@ -15,9 +15,11 @@ class CelebDFDataset(Dataset):
         self.transform = transform
         self.image_paths = []
         self.labels = []
+        self.class_counts = {real_folder: 0, fake_folder: 0}
         
         # Map folders to binary labels (0 for Real, 1 for Fake)
         classes = {real_folder: 0, fake_folder: 1}
+        allowed_exts = ('.png', '.jpg', '.jpeg')
         
         for folder_name, label in classes.items():
             folder_path = os.path.join(root_dir, folder_name)
@@ -25,10 +27,16 @@ class CelebDFDataset(Dataset):
                 print(f"Warning: Folder not found -> {folder_path}")
                 continue
                 
-            for img_name in os.listdir(folder_path):
-                if img_name.endswith(('.png', '.jpg', '.jpeg')):
+            for img_name in sorted(os.listdir(folder_path)):
+                if img_name.lower().endswith(allowed_exts):
                     self.image_paths.append(os.path.join(folder_path, img_name))
                     self.labels.append(label)
+                    self.class_counts[folder_name] += 1
+        
+        if len(self.image_paths) == 0:
+            print(f"Warning: No images found under {root_dir}. Check that your real/fake folders contain image files.")
+        elif any(count == 0 for count in self.class_counts.values()):
+            print(f"Warning: Class imbalance detected. Counts: {self.class_counts}")
 
     def __len__(self):
         return len(self.image_paths)

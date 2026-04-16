@@ -34,9 +34,10 @@ def load_trained_model():
     if weight_path.exists():
         # Load the dictionary into the skeleton
         model.load_state_dict(torch.load(weight_path, map_location=device))
-        st.sidebar.success("Successfully loaded trained weights from best_model.pth.")
+        st.sidebar.success(f"Successfully loaded trained weights from {weight_path.name}.")
     else:
-        st.sidebar.warning("No trained weights found. Using randomized initialization. Please run the training pipeline first.")
+        st.sidebar.error("No trained weights found. Please run the training pipeline first and reload the app.")
+        st.stop()
         
     model.eval() # Set to evaluation mode (crucial for inference)
     return model, device
