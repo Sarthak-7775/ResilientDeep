@@ -57,7 +57,7 @@ data/upscaled/
 data/dataset
 data/attacked
 
-*.pth
+# *.pth
 *.pt
 *.ckpt
 
