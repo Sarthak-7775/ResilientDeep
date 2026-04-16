@@ -1,6 +1,9 @@
 # main.py
 import argparse
 import os
+import subprocess
+import sys
+from pathlib import Path
 import tqdm
 
 def run_attack_pipeline(input_base_dir, output_base_dir):
@@ -47,7 +50,8 @@ def main():
         
     elif args.mode == 'dashboard':
         print("Launching Hardware Interface...")
-        os.system("streamlit run dashboard/app.py")
+        dashboard_script = Path(__file__).resolve().parent / "dashboard" / "app.py"
+        subprocess.run([sys.executable, "-m", "streamlit", "run", str(dashboard_script)], cwd=Path(__file__).resolve().parent, check=True)
         
     elif args.mode == 'attack':
         print("Executing Phase 1: Attack Pipeline (Compression & Upscaling)...")

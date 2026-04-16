@@ -3,13 +3,22 @@ import streamlit as st
 import torch
 import numpy as np
 from PIL import Image
+from pathlib import Path
 import sys
-import os
+
+# Set the page layout and app metadata
+st.set_page_config(page_title="ResilientDeep Prototype", layout="wide")
 
 # Add the root directory to the path so we can import our modules
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from src.modules.model import ResilientDetector
-from src.data_pipeline.dataset import baseline_transforms
+ROOT_DIR = Path(__file__).resolve().parent.parent
+sys.path.append(str(ROOT_DIR))
+
+try:
+    from src.modules.model import ResilientDetector
+    from src.data_pipeline.dataset import baseline_transforms
+except Exception as e:
+    st.error(f"Failed to import dashboard dependencies: {e}")
+    st.stop()
 
 st.title("ResilientDeep Prototype")
 st.write("Upload an image to test against the Visibility Matrix and High-Frequency Enhancer.")
@@ -20,9 +29,9 @@ def load_trained_model():
     model = ResilientDetector(num_classes=2).to(device)
     
     # Path to your best saved weights (assuming execution via main.py)
-    weight_path = os.path.abspath("models/checkpoints/best_model.pth")
+    weight_path = ROOT_DIR / "models" / "checkpoints" / "best_model.pth"
     
-    if os.path.exists(weight_path):
+    if weight_path.exists():
         # Load the dictionary into the skeleton
         model.load_state_dict(torch.load(weight_path, map_location=device))
         st.sidebar.success("Successfully loaded trained weights from best_model.pth.")
@@ -33,7 +42,8 @@ def load_trained_model():
     return model, device
 
 # Load the model state
-model, device = load_trained_model()
+with st.spinner("Loading model..."):
+    model, device = load_trained_model()
 
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 

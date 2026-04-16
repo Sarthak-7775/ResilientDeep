@@ -33,7 +33,11 @@ class ResilientDetector(nn.Module):
         self.enhancer = HighFreqEnhancer()
         
         # Core Classification Backbone
-        self.backbone = models.resnet18(weights=models.ResNet18_Weights.DEFAULT)
+        try:
+            self.backbone = models.resnet18(weights=models.ResNet18_Weights.DEFAULT)
+        except Exception:
+            # Fallback when pretrained weights are unavailable or cannot be downloaded
+            self.backbone = models.resnet18(weights=None)
         num_ftrs = self.backbone.fc.in_features
         self.backbone.fc = nn.Sequential(
             nn.Dropout(0.5),
